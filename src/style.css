@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+.error {
+  opacity: 50%;
+  /*filter: saturate(50%);*/
+  pointer-events: none;
+}
