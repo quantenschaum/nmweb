@@ -96,11 +96,7 @@ def no_cache(response):
     return response
 
 
-@app.route("/")
-def root():
-    return send_file("dist/index.html")
-
-
+@app.route("/", defaults={"filename": "index.html"})
 @app.route("/<path:filename>")
 def files(filename):
     return send_from_directory("dist", filename)
