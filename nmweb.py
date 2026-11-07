@@ -4,7 +4,11 @@ from typing import Any, Dict, List, Optional
 
 from flask import Flask, request, send_file, send_from_directory
 from pydbus import SystemBus, Variant
-from rich import print
+
+try:
+    from rich import print
+except:
+    pass
 
 app = Flask(__name__)
 bus = SystemBus()
@@ -223,9 +227,11 @@ def connections() -> List[Dict[str, Any]]:
 def cons():
     return sorted(
         connections(),
-        key=lambda c: -(1000 if c["primary"] else 1)
-        * (c["State"] % 5 or 1)
-        * dget(c, "connection.timestamp", 0),
+        key=lambda c: (
+            -(1000 if c["primary"] else 1)
+            * (c["State"] % 5 or 1)
+            * dget(c, "connection.timestamp", 0)
+        ),
     )
 
 
