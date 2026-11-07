@@ -1,9 +1,9 @@
 dev:
-	pnpm run dev
+	npm run dev
 
 build:
-	pnpm install
-	pnpm run build
+	npm install
+	npm run build
 
 run:
 	./nmweb.py
