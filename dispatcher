@@ -1,0 +1,24 @@
+#!/bin/bash
+# NetworkManager dispatcher script to update UFW rules
+# place it in /etc/NetworkManager/dispatcher.d/
+
+DEVICE="$1"
+ACTION="$2"
+
+[[ $ACTION != up && $ACTION != down ]] && exit
+
+STAT="$(ufw status)"
+TYPE="$(nmcli -g GENERAL.TYPE device show "$DEVICE" 2>/dev/null)"
+CONN="$(nmcli -g GENERAL.CONNECTION device show "$DEVICE" 2>/dev/null)"
+MODE="$(nmcli -g 802-11-wireless.mode connection show "$CONN" 2>/dev/null)"
+
+LOG=/home/al/work/eurovermessung/webapp/log
+echo "DEVICE=$DEVICE ACTION=$ACTION TYPE=$TYPE CONN=$CONN MODE=$MODE" >>$LOG
+
+[[ $STAT == *inactive* || $TYPE != wifi ]] && exit
+
+if [[ $ACTION == up && $MODE == ap ]]; then
+  ufw allow in on $DEVICE
+else
+  ufw delete allow in on $DEVICE
+fi

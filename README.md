@@ -2,7 +2,7 @@
 
 A webinterface for NetworkManager
 
-The goal of this project is to provide webinterface to [NetworkManager](https://networkmanager.dev/) to conveniently configure networking on headless devices.
+The goal of this project is to provide a webinterface to [NetworkManager](https://networkmanager.dev/) to conveniently configure networking on headless devices.
 
 It consists of two parts.
 
@@ -23,3 +23,11 @@ There is a makefile containing the necessary commands to build and run the code.
 1. build the UI once with `make build`
 2. run the server with `make run`
 3. go to http://localhost:5005
+
+## AvNav Plugin 
+
+The plugin integrates nmweb into AvNav and exposes the NetworkManager web UI as an AvNav user app.
+
+This plugin starts the backend and registers an AvNav app entry on the server settings page.
+
+Build the plugin with `make plugin` and upload the ZIP into AvNav.
